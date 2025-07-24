@@ -31,8 +31,8 @@ export class ToolService {
     }
   }
 
-  public getToolDescription(toolName: string): string | undefined {
-    return this.toolDescriptions.get(toolName);
+  public getToolDescription(toolName: string): string {
+    return this.toolDescriptions.get(toolName) || '';
   }
 
   public async upsertTool(name: string, description: string): Promise<ITool> {
