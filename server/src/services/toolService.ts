@@ -1,8 +1,10 @@
 import { Tool, ITool } from '../models/Tool';
+import { EventEmitter } from 'events';
 
 export class ToolService {
   private static instance: ToolService;
   private toolDescriptions: Map<string, string> = new Map();
+  public eventEmitter = new EventEmitter();
 
   private constructor() {}
 
@@ -44,6 +46,9 @@ export class ToolService {
       // Update local cache
       this.toolDescriptions.set(name, description);
       
+      // Emit event
+      this.eventEmitter.emit('tool-upserted', { name, description });
+
       return tool;
     } catch (error) {
       console.error('Error upserting tool:', error);
